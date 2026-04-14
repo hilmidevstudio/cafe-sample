@@ -110,54 +110,94 @@ export function ReservationForm({ locationId, locationName, locationPhone }: Res
             Pilih Jam
           </label>
           {date ? (
-            <div className="relative animate-in fade-in zoom-in-95 duration-300 bg-white/80 border border-[#e8e2d8] rounded-2xl shadow-inner focus-within:ring-2 focus-within:ring-primary flex items-center justify-center min-h-[64px]">
+            <div className="bg-white/80 border border-[#e8e2d8] rounded-[24px] shadow-sm p-4 relative overflow-hidden animate-in fade-in zoom-in-95 duration-300">
               
-              <select
-                value={time ? time.split(':')[0] : "15"}
-                onChange={(e) => {
-                  const m = time ? time.split(':')[1] : "00";
-                  setTime(`${e.target.value}:${m}`);
-                  setError('');
-                }}
-                className="appearance-none bg-transparent text-2xl font-bold text-primary text-right outline-none cursor-pointer py-4 pl-8 pr-2 z-10"
-                style={{ WebkitAppearance: 'none' }}
-              >
-                <option value="" disabled>Jam</option>
-                {Array.from({length: 10}, (_, i) => i + 13).map(h => {
-                  const hr = h.toString().padStart(2, '0');
-                  return <option key={hr} value={hr}>{hr}</option>
-                })}
-              </select>
-
-              <span className="text-2xl font-bold text-primary pb-1 pointer-events-none">:</span>
-
-              <select
-                value={time ? time.split(':')[1] : "00"}
-                onChange={(e) => {
-                  const h = time ? time.split(':')[0] : "15";
-                  setTime(`${h}:${e.target.value}`);
-                  setError('');
-                }}
-                className="appearance-none bg-transparent text-2xl font-bold text-primary text-left outline-none cursor-pointer py-4 pr-10 pl-2 z-10"
-                style={{ WebkitAppearance: 'none' }}
-              >
-                <option value="" disabled>Mnt</option>
-                {['00','15','30','45'].map(m => (
-                  <option key={m} value={m}>{m}</option>
-                ))}
-              </select>
-
-              {/* Initialize default time if empty on first click/focus to ensure UX flow */}
-              {!time && (
+              <div className="absolute inset-x-4 top-1/2 -mt-5 h-[40px] bg-primary/5 rounded-[14px] pointer-events-none" />
+              
+              <div className="flex items-center justify-center gap-6 relative z-10 w-full">
+                
+                {/* Hours Wheel */}
                 <div 
-                  className="absolute inset-0 z-20 cursor-pointer"
-                  onClick={() => { setTime("15:00"); setError(''); }}
-                />
-              )}
+                  className="h-[120px] w-20 overflow-y-auto snap-y snap-mandatory no-scrollbar"
+                  onScroll={(e) => {
+                    const idx = Math.round(e.currentTarget.scrollTop / 40);
+                    const hoursList = Array.from({length: 10}, (_, i) => (i + 13).toString().padStart(2, '0'));
+                    if (hoursList[idx]) {
+                      const m = time ? time.split(':')[1] : "00";
+                      setTime(`${hoursList[idx]}:${m}`);
+                      setError('');
+                    }
+                  }}
+                  ref={(node) => {
+                    if (node && !node.dataset.scrolled) {
+                      const currentH = time ? time.split(':')[0] : "15";
+                      const idx = Array.from({length: 10}, (_, i) => (i + 13).toString().padStart(2, '0')).indexOf(currentH);
+                      node.scrollTop = Math.max(0, idx * 40);
+                      node.dataset.scrolled = 'true';
+                    }
+                  }}
+                >
+                  <div className="py-[40px]">
+                    {Array.from({length: 10}, (_, i) => (i + 13).toString().padStart(2, '0')).map(h => (
+                      <div 
+                        key={h}
+                        className={`h-[40px] flex items-center justify-center snap-center text-[22px] font-bold transition-all duration-200 select-none cursor-pointer ${(time ? time.split(':')[0] : "15") === h ? 'text-primary scale-110' : 'text-primary/30 scale-95'}`}
+                        onClick={(e) => {
+                          const m = time ? time.split(':')[1] : "00";
+                          setTime(`${h}:${m}`);
+                          setError('');
+                          e.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }}
+                      >
+                        {h}
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
-              {/* Custom Icon Layer */}
-              <div className="absolute right-4 text-primary pointer-events-none z-0">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <div className="text-2xl font-bold text-primary/40 -mt-1 pb-1">:</div>
+
+                {/* Minutes Wheel */}
+                <div 
+                  className="h-[120px] w-20 overflow-y-auto snap-y snap-mandatory no-scrollbar"
+                  onScroll={(e) => {
+                    const idx = Math.round(e.currentTarget.scrollTop / 40);
+                    const minsList = ['00','15','30','45'];
+                    if (minsList[idx]) {
+                      const h = time ? time.split(':')[0] : "15";
+                      setTime(`${h}:${minsList[idx]}`);
+                      setError('');
+                    }
+                  }}
+                  ref={(node) => {
+                    if (node && !node.dataset.scrolled) {
+                      const currentM = time ? time.split(':')[1] : "00";
+                      const idx = ['00','15','30','45'].indexOf(currentM);
+                      node.scrollTop = Math.max(0, idx * 40);
+                      node.dataset.scrolled = 'true';
+                      // If time is initially totally empty, ensure state tracks the default visible "15:00"
+                      if (!time) setTime("15:00");
+                    }
+                  }}
+                >
+                  <div className="py-[40px]">
+                    {['00','15','30','45'].map(m => (
+                      <div 
+                        key={m}
+                        className={`h-[40px] flex items-center justify-center snap-center text-[22px] font-bold transition-all duration-200 select-none cursor-pointer ${(time ? time.split(':')[1] : "00") === m ? 'text-primary scale-110' : 'text-primary/30 scale-95'}`}
+                        onClick={(e) => {
+                          const h = time ? time.split(':')[0] : "15";
+                          setTime(`${h}:${m}`);
+                          setError('');
+                          e.currentTarget.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }}
+                      >
+                        {m}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
               </div>
             </div>
           ) : (
