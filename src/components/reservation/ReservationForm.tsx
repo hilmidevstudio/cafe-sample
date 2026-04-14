@@ -110,14 +110,22 @@ export function ReservationForm({ locationId, locationName, locationPhone }: Res
             Pilih Jam
           </label>
           {date ? (
-            <div className="relative animate-in fade-in zoom-in-95 duration-300 bg-white/80 border border-[#e8e2d8] rounded-2xl shadow-inner overflow-hidden focus-within:ring-2 focus-within:ring-primary flex items-center justify-center">
+            <div className="relative animate-in fade-in zoom-in-95 duration-300 bg-white/80 border border-[#e8e2d8] rounded-2xl shadow-inner overflow-hidden focus-within:ring-2 focus-within:ring-primary flex items-center justify-center min-h-[64px]">
+              
+              {/* Perfectly centered absolutely positioned display text */}
+              <div className="absolute inset-0 flex items-center justify-center text-2xl font-bold text-primary pointer-events-none z-0">
+                {time || "--:--"}
+              </div>
+              
+              {/* Invisible native time input overlaid on top */}
               <input
                 type="time"
                 value={time}
                 onChange={(e) => { setTime(e.target.value); setError(''); }}
-                className="w-full text-center py-4 text-2xl font-bold text-primary focus:outline-none bg-transparent relative z-10 cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
-                style={{ WebkitAppearance: 'none' }}
+                className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
               />
+              
+              {/* Custom Icon Layer */}
               <div className="absolute right-4 text-primary pointer-events-none z-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               </div>
