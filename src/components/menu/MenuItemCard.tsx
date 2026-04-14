@@ -26,7 +26,7 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
   const handleRemove = () => updateQuantity(item.id, item.name, item.price, -1);
 
   return (
-    <div className="flex gap-5 p-5 bg-[#f9f6f1] rounded-[28px] border border-[#e8e2d8] shadow-sm relative overflow-hidden transition-all duration-300 hover:shadow-md hover:bg-white active:scale-[0.98]">
+    <div className="flex gap-4 p-4 bg-white/70 backdrop-blur-xl rounded-[20px] border border-white/60 shadow-sm hover:shadow-md hover:scale-[1.015] active:scale-[0.98] transition-all duration-300 relative overflow-hidden group">
       <div className="relative w-32 h-32 shrink-0 rounded-[20px] overflow-hidden bg-[#f0ecdf] shadow-inner">
         {item.image_url && !imgError ? (
           <Image

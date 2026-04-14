@@ -67,7 +67,7 @@ export function ReservationForm({ locationId, locationName, locationPhone }: Res
   };
 
   return (
-    <form onSubmit={handleReservation} className="bg-[#fcfaf5]/60 p-6 sm:p-8 rounded-[32px] shadow-sm border border-[#e8e2d8] w-full max-w-md mx-auto backdrop-blur-md">
+    <form onSubmit={handleReservation} className="bg-white/40 p-6 sm:p-8 rounded-[32px] shadow-2xl border-2 border-white/50 w-full max-w-md mx-auto backdrop-blur-3xl transition-all duration-500 hover:shadow-3xl">
       <div className="text-center mb-8">
         <h2 className="font-serif text-[28px] text-primary font-bold leading-tight tracking-tight mb-2">Jadwal<br/>Reservasi</h2>
         <p className="text-foreground/60 text-sm font-medium">Tentukan waktu yang tepat untuk kunjungan Anda.</p>
