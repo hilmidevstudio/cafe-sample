@@ -41,7 +41,7 @@ export function MenuItemCard({ item }: MenuItemCardProps) {
         ) : (
           <div className="absolute inset-0 flex items-center justify-center bg-[#f0ecdf]">
              <div className="relative w-12 h-12 opacity-30">
-               <Image src="/logo.png" alt="Epilogi" fill className="object-contain" />
+               <Image src="/logo.png" alt="Cafe Sample" fill className="object-contain" />
              </div>
           </div>
         )}

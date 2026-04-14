@@ -34,7 +34,7 @@ const rawMenu = [
   { id: 'd-cf-3', name: 'Café Latte', price: 38000, category: 'drink', subcategory: 'coffee', is_available: true },
 
   // DRINK - Milk Based
-  { id: 'd-mb-1', name: 'Kopi Susu Epilogi', price: 35000, category: 'drink', subcategory: 'milk_based', is_available: true },
+  { id: 'd-mb-1', name: 'Kopi Susu Signature', price: 35000, category: 'drink', subcategory: 'milk_based', is_available: true },
   { id: 'd-mb-2', name: 'Kopi Susu Pandan', price: 38000, category: 'drink', subcategory: 'milk_based', is_available: true },
 
   // DRINK - Non Coffee

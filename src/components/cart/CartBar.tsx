@@ -25,7 +25,7 @@ function generateWaLink(
   let text = '';
 
   if (mode === 'reservation') {
-    text = "Halo Epilogi, saya ingin reservasi\r\n\r\n" +
+    text = "Halo Cafe Sample, saya ingin reservasi\r\n\r\n" +
            "\u{1F464} Atas Nama: " + customerName + "\r\n" +
            "\u{1F4CD} Lokasi: " + locationName + "\r\n\r\n" +
            "\u{1F4C5} Tanggal: " + (reservationDetails?.date || '') + "\r\n" +
@@ -36,7 +36,7 @@ function generateWaLink(
     text += "\r\n\u{1F37D}\u{FE0F} Pesanan:\r\n" + itemText + "\r\n\r\n" +
             "\u{1F4B0} Estimasi: Rp " + total.toLocaleString('id-ID');
   } else {
-    text = "Halo Epilogi, saya ingin pesan\r\n\r\n" +
+    text = "Halo Cafe Sample, saya ingin pesan\r\n\r\n" +
            "\u{1F464} Atas Nama: " + customerName + "\r\n" +
            "\u{1F4CD} Lokasi: " + locationName + "\r\n\r\n" +
            "\u{1F37D}\u{FE0F} Pesanan:\r\n" + itemText + "\r\n\r\n" +
@@ -242,7 +242,7 @@ export function CartBar({ locationId, locationName, locationPhone }: CartBarProp
 
       </div>
 
-      {/* Custom Alert Modal matching Epilogi Aesthetic */}
+      {/* Custom Alert Modal matching Cafe Sample Aesthetic */}
       {alertMessage && (
         <div className="fixed inset-0 bg-primary/20 backdrop-blur-sm z-[100] flex items-center justify-center p-4 min-h-[100dvh] animate-in fade-in">
           <div className="bg-[#fcfaf5] border border-[#e8e2d8] rounded-[24px] p-6 w-full max-w-[320px] shadow-2xl flex flex-col items-center text-center animate-in zoom-in-95 duration-300">

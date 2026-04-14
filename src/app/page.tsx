@@ -23,7 +23,7 @@ export default async function Home() {
         <div className="mb-4">
           <Image 
             src="/logo.png" 
-            alt="Epilogi Coffee" 
+            alt="Cafe Sample" 
             width={80} 
             height={80} 
             className="object-contain" 
@@ -32,7 +32,7 @@ export default async function Home() {
         </div>
         
         <h1 className="font-serif text-[42px] font-bold text-primary mb-3 tracking-tight leading-tight">
-          Pilih lokasi Epilogi
+          Pilih lokasi Cafe Sample
         </h1>
         <p className="text-foreground/70 mb-12 font-medium text-lg px-4 leading-relaxed">
           Kami siap melayani Anda. Silakan pilih lokasi terdekat.

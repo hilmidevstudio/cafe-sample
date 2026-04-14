@@ -14,8 +14,8 @@ const playfairFont = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "Epilogi Coffee - Smart Order",
-  description: "Simplifying order and reservation for Epilogi Coffee locations.",
+  title: "Cafe Sample - Smart Order",
+  description: "Simplifying order and reservation for Cafe Sample locations.",
 };
 
 export default function RootLayout({

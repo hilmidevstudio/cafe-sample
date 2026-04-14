@@ -2,16 +2,16 @@ import { NextResponse } from 'next/server';
 
 export const locations = [
   {
-    id: "ngadisimo",
-    name: "Epilogi Ngadisimo",
+    id: "lokasi-1",
+    name: "Cafe Sample Lokasi 1",
     address: "Ngadisimo 1 No 7, Kediri",
-    phone: "6282236353335"
+    phone: "628132992484"
   },
   {
-    id: "panjalu",
-    name: "Epilogi Panjalu",
+    id: "lokasi-2",
+    name: "Cafe Sample Lokasi 2",
     address: "Panjalu Padel Club, Kediri",
-    phone: "6282236353335"
+    phone: "628132992484"
   }
 ];
 
