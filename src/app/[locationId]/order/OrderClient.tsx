@@ -52,7 +52,7 @@ export function OrderClient({ location, menu }: OrderClientProps) {
           </div>
         </div>
         <div className="bg-white rounded-xl shadow-sm border border-[#e8e2d8] p-1 flex items-center justify-center">
-          <Image src="/logo.png" alt="Cafe Sample" width={32} height={32} className="object-contain" />
+          <Image src="/logo.png" alt="Cafe Sample" width={32} height={32} className="object-contain" style={{ width: 'auto', height: 'auto' }} />
         </div>
       </div>
 

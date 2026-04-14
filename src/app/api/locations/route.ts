@@ -4,13 +4,13 @@ export const locations = [
   {
     id: "lokasi-1",
     name: "Cafe Sample Lokasi 1",
-    address: "Ngadisimo 1 No 7, Kediri",
+    address: "Jl. Sudirman No 123, Sample City",
     phone: "628132992484"
   },
   {
     id: "lokasi-2",
     name: "Cafe Sample Lokasi 2",
-    address: "Panjalu Padel Club, Kediri",
+    address: "Kawasan Bisnis Sentral Blok B, Sample City",
     phone: "628132992484"
   }
 ];
