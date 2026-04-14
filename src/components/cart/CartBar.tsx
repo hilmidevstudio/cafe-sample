@@ -109,8 +109,7 @@ export function CartBar({ locationId, locationName, locationPhone }: CartBarProp
       />
 
       <div 
-        className={`fixed bottom-0 left-0 right-0 z-50 bg-[#f8f5ef]/85 backdrop-blur-2xl border-t border-white/60 shadow-[0_-12px_50px_rgba(43,66,56,0.12)] transition-transform duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] rounded-t-[32px] overflow-hidden`}
-        style={{ transform: !isOpen && itemCount > 0 ? 'translateY(calc(100% - 94px))' : (!isOpen ? 'translateY(100%)' : 'translateY(0)') }}
+        className={`fixed bottom-0 left-0 right-0 z-50 bg-[#fcfaf5]/85 backdrop-blur-2xl border-t border-white/60 shadow-[0_-12px_50px_rgba(43,66,56,0.12)] transition-all duration-500 ease-[cubic-bezier(0.32,0.72,0,1)] rounded-t-[32px] ${!isOpen ? 'translate-y-0' : ''}`}
       >
         
         {isOpen && (
@@ -208,38 +207,37 @@ export function CartBar({ locationId, locationName, locationPhone }: CartBarProp
           </div>
         )}
 
-        {/* Compact Summary Bar (Always in DOM, handled by parent transform logic) */}
-        <div 
-          className="absolute top-0 left-0 right-0 p-5 w-full max-w-md mx-auto"
-          style={{ opacity: isOpen ? 0 : 1, transition: 'opacity 0.3s ease', pointerEvents: isOpen ? 'none' : 'auto' }}
-        >
-          <div 
-            className="flex items-center justify-between bg-primary/95 backdrop-blur-md text-primary-foreground p-3 pl-4 rounded-[22px] cursor-pointer shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 active:scale-[0.98] border border-primary/20"
-            onClick={() => setIsOpen(true)}
-          >
-            <div className="flex items-center gap-4">
-              <div className="bg-white/10 p-2.5 rounded-[14px] border border-white/10 shadow-inner">
-                <ShoppingBag className="w-6 h-6 text-[#b89162]" strokeWidth={2.5} />
+        {/* Compact Summary Bar (Always visible when items > 0) */}
+        {!isOpen && (
+          <div className="absolute bottom-0 left-0 right-0 p-5 w-full max-w-md mx-auto bg-[#fcfaf5]/85 backdrop-blur-2xl rounded-t-[32px] border-t border-white/60 shadow-[0_-12px_50px_rgba(43,66,56,0.12)]">
+            <div 
+              className="flex items-center justify-between bg-primary/95 backdrop-blur-md text-primary-foreground p-3 pl-4 rounded-[22px] cursor-pointer shadow-lg hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 active:scale-[0.98] border border-primary/20"
+              onClick={() => setIsOpen(true)}
+            >
+              <div className="flex items-center gap-4">
+                <div className="bg-white/10 p-2.5 rounded-[14px] border border-white/10 shadow-inner">
+                  <ShoppingBag className="w-6 h-6 text-[#b89162]" strokeWidth={2.5} />
+                </div>
+                <div>
+                  <p className="font-medium text-[11px] text-[#e8e2d8] uppercase tracking-widest mb-0.5">{itemCount} item</p>
+                  <p className="font-serif font-bold text-lg leading-tight tracking-tight">Rp {total.toLocaleString('id-ID')}</p>
+                </div>
               </div>
-              <div>
-                <p className="font-medium text-[11px] text-[#e8e2d8] uppercase tracking-widest mb-0.5">{itemCount} item</p>
-                <p className="font-serif font-bold text-lg leading-tight tracking-tight">Rp {total.toLocaleString('id-ID')}</p>
-              </div>
-            </div>
 
-            <div className="flex items-center gap-2 pr-1.5">
-              <Button 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsOpen(true);
-                }}
-                className="bg-[#b89162] hover:bg-[#a68255] text-white h-[46px] px-6 rounded-[14px] font-bold shadow-md hover:shadow-lg transition-all"
-              >
-                {ctaBtnText}
-              </Button>
+              <div className="flex items-center gap-2 pr-1.5">
+                <Button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsOpen(true);
+                  }}
+                  className="bg-[#b89162] hover:bg-[#a68255] text-white h-[46px] px-6 rounded-[14px] font-bold shadow-md hover:shadow-lg active:scale-95 transition-all"
+                >
+                  {ctaBtnText}
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
       </div>
 
