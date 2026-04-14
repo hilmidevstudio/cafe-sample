@@ -110,16 +110,16 @@ export function ReservationForm({ locationId, locationName, locationPhone }: Res
             Pilih Jam
           </label>
           {date ? (
-            <div className="relative animate-in fade-in zoom-in-95 duration-300">
+            <div className="relative animate-in fade-in zoom-in-95 duration-300 bg-white/80 border border-[#e8e2d8] rounded-2xl shadow-inner overflow-hidden focus-within:ring-2 focus-within:ring-primary flex items-center justify-center">
               <input
                 type="time"
                 value={time}
                 onChange={(e) => { setTime(e.target.value); setError(''); }}
-                className="w-full text-center py-4 bg-white/80 border border-[#e8e2d8] rounded-2xl text-2xl font-bold text-primary focus:outline-none focus:ring-2 focus:ring-primary shadow-inner appearance-none cursor-pointer"
+                className="w-full text-center py-4 text-2xl font-bold text-primary focus:outline-none bg-transparent relative z-10 cursor-pointer [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:inset-0 [&::-webkit-calendar-picker-indicator]:w-full [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer"
                 style={{ WebkitAppearance: 'none' }}
               />
-              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-primary/40">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <div className="absolute right-4 text-primary pointer-events-none z-0">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               </div>
             </div>
           ) : (
