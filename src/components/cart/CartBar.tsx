@@ -10,6 +10,7 @@ import { buildWhatsAppUrl } from '@/utils/whatsapp';
 function generateWaLink(
   phone: string,
   locationName: string,
+  customerName: string,
   items: any[],
   total: number,
   mode: 'order' | 'reservation',
@@ -25,6 +26,7 @@ function generateWaLink(
 
   if (mode === 'reservation') {
     text = "Halo Epilogi, saya ingin reservasi\r\n\r\n" +
+           "\u{1F464} Atas Nama: " + customerName + "\r\n" +
            "\u{1F4CD} Lokasi: " + locationName + "\r\n\r\n" +
            "\u{1F4C5} Tanggal: " + (reservationDetails?.date || '') + "\r\n" +
            "\u23F0 Jam: " + (reservationDetails?.time || '') + "\r\n";
@@ -35,6 +37,7 @@ function generateWaLink(
             "\u{1F4B0} Estimasi: Rp " + total.toLocaleString('id-ID');
   } else {
     text = "Halo Epilogi, saya ingin pesan\r\n\r\n" +
+           "\u{1F464} Atas Nama: " + customerName + "\r\n" +
            "\u{1F4CD} Lokasi: " + locationName + "\r\n\r\n" +
            "\u{1F37D}\u{FE0F} Pesanan:\r\n" + itemText + "\r\n\r\n" +
            "\u{1F4B0} Total: Rp " + total.toLocaleString('id-ID') + "\r\n\r\n" +
@@ -56,6 +59,7 @@ interface CartBarProps {
 export function CartBar({ locationId, locationName, locationPhone }: CartBarProps) {
   const { items, total, itemCount, mode, reservationDetails } = useCart();
   const [isOpen, setIsOpen] = useState(false);
+  const [customerName, setCustomerName] = useState('');
   const [orderType, setOrderType] = useState<string>('Dine In');
   const [address, setAddress] = useState('');
 
@@ -65,6 +69,10 @@ export function CartBar({ locationId, locationName, locationPhone }: CartBarProp
   }
 
   const handleOrder = () => {
+    if (!customerName.trim()) {
+      alert('Mohon isi kolom Atas Nama terlebih dahulu');
+      return;
+    }
     if (mode === 'order' && orderType === 'Delivery' && !address.trim()) {
       alert('Mohon isi alamat untuk pengiriman');
       return;
@@ -72,6 +80,7 @@ export function CartBar({ locationId, locationName, locationPhone }: CartBarProp
     const link = generateWaLink(
       locationPhone, 
       locationName, 
+      customerName,
       items, 
       total, 
       mode, 
@@ -131,6 +140,18 @@ export function CartBar({ locationId, locationName, locationPhone }: CartBarProp
                 <span className="text-sm font-semibold text-foreground/70">Total Pesanan</span>
                 <span className="font-serif font-bold text-xl text-primary">Rp {total.toLocaleString('id-ID')}</span>
               </div>
+            </div>
+
+            {/* Nama Pemesan (Wajib) */}
+            <div className="bg-white/80 p-5 rounded-3xl border border-border shadow-sm mb-4">
+              <label className="block text-sm font-semibold text-primary mb-2 ml-1">Atas Nama</label>
+              <input
+                type="text"
+                placeholder="Masukkan nama Anda..."
+                value={customerName}
+                onChange={(e) => setCustomerName(e.target.value)}
+                className="w-full border border-border bg-[#f8f5ef] rounded-[18px] p-3.5 text-[15px] font-medium focus:outline-none focus:ring-1 focus:ring-primary transition-shadow"
+              />
             </div>
 
             {mode === 'order' && (
