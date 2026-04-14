@@ -20,8 +20,10 @@ export function ReservationForm({ locationId, locationName, locationPhone }: Res
   const [pax, setPax] = useState('');
   const [error, setError] = useState('');
 
-  // Generate next 7 days for the date picker
-  const dates = useMemo(() => {
+  const [dates, setDates] = useState<Array<{formatted: string, display: string}>>([]);
+
+  // Generate next 7 days for the date picker (on client side to ensure real-time accuracy and prevent SSR mismatch)
+  React.useEffect(() => {
     const list = [];
     const today = new Date();
     for (let i = 0; i < 7; i++) {
@@ -38,16 +40,8 @@ export function ReservationForm({ locationId, locationName, locationPhone }: Res
         display: `${i === 0 ? 'Hari Ini' : dayName + ', ' + dayNum + ' ' + month}` 
       });
     }
-    return list;
+    setDates(list);
   }, []);
-
-  // Generate daily time slots (e.g. 15:00 to 22:00)
-  const timeSlots = [
-    "15:00", "15:30", "16:00", "16:30", 
-    "17:00", "17:30", "18:00", "18:30", 
-    "19:00", "19:30", "20:00", "20:30", 
-    "21:00", "21:30", "22:00"
-  ];
 
   const handleReservation = (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,21 +110,17 @@ export function ReservationForm({ locationId, locationName, locationPhone }: Res
             Pilih Jam
           </label>
           {date ? (
-            <div className="grid grid-cols-4 gap-2.5">
-              {timeSlots.map((t) => (
-                <button
-                  key={t}
-                  type="button"
-                  onClick={() => { setTime(t); setError(''); }}
-                  className={`py-2.5 rounded-xl border text-sm font-bold transition-all duration-200 active:scale-95 ${
-                    time === t 
-                    ? 'bg-primary border-primary text-white shadow-md' 
-                    : 'bg-white border-[#e8e2d8] text-foreground/80 hover:bg-[#f9f6f1]'
-                  }`}
-                >
-                  {t}
-                </button>
-              ))}
+            <div className="relative animate-in fade-in zoom-in-95 duration-300">
+              <input
+                type="time"
+                value={time}
+                onChange={(e) => { setTime(e.target.value); setError(''); }}
+                className="w-full text-center py-4 bg-white/80 border border-[#e8e2d8] rounded-2xl text-2xl font-bold text-primary focus:outline-none focus:ring-2 focus:ring-primary shadow-inner appearance-none cursor-pointer"
+                style={{ WebkitAppearance: 'none' }}
+              />
+              <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-primary/40">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
             </div>
           ) : (
             <div className="w-full py-8 rounded-2xl border border-dashed border-[#e8e2d8] text-center text-foreground/40 font-medium text-sm">
