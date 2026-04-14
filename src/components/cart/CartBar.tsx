@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useCart } from '@/context/CartContext';
-import { ShoppingBag, X } from 'lucide-react';
+import { ShoppingBag, X, Info } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { buildWhatsAppUrl } from '@/utils/whatsapp';
 
@@ -62,6 +62,7 @@ export function CartBar({ locationId, locationName, locationPhone }: CartBarProp
   const [customerName, setCustomerName] = useState('');
   const [orderType, setOrderType] = useState<string>('Dine In');
   const [address, setAddress] = useState('');
+  const [alertMessage, setAlertMessage] = useState<string | null>(null);
 
   if (itemCount === 0) {
     if (isOpen) setIsOpen(false);
@@ -70,11 +71,11 @@ export function CartBar({ locationId, locationName, locationPhone }: CartBarProp
 
   const handleOrder = () => {
     if (!customerName.trim()) {
-      alert('Mohon isi kolom Atas Nama terlebih dahulu');
+      setAlertMessage('Mohon isi kolom Atas Nama terlebih dahulu untuk memudahkan konfirmasi pesanan.');
       return;
     }
     if (mode === 'order' && orderType === 'Delivery' && !address.trim()) {
-      alert('Mohon isi alamat untuk pengiriman');
+      setAlertMessage('Mohon isi alamat lengkap Anda untuk memproses pengiriman pesanan.');
       return;
     }
     const link = generateWaLink(
@@ -240,6 +241,22 @@ export function CartBar({ locationId, locationName, locationPhone }: CartBarProp
         )}
 
       </div>
+
+      {/* Custom Alert Modal matching Epilogi Aesthetic */}
+      {alertMessage && (
+        <div className="fixed inset-0 bg-primary/20 backdrop-blur-sm z-[100] flex items-center justify-center p-4 min-h-[100dvh] animate-in fade-in">
+          <div className="bg-[#fcfaf5] border border-[#e8e2d8] rounded-[24px] p-6 w-full max-w-[320px] shadow-2xl flex flex-col items-center text-center animate-in zoom-in-95 duration-300">
+            <div className="w-12 h-12 bg-[#b89162]/10 text-[#b89162] rounded-full flex items-center justify-center mb-4">
+              <Info className="w-6 h-6" />
+            </div>
+            <h3 className="font-serif font-bold text-[22px] text-primary mb-2">Perhatian</h3>
+            <p className="text-foreground/70 font-medium text-[15px] mb-8 leading-snug px-1">{alertMessage}</p>
+            <Button onClick={() => setAlertMessage(null)} className="w-full h-[46px] rounded-[14px] text-[15px] font-bold shadow-md bg-primary hover:bg-primary/90 text-white active:scale-95 transition-all">
+              Baik, Mengerti
+            </Button>
+          </div>
+        </div>
+      )}
     </>
   );
 }
