@@ -31,8 +31,15 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
-  const [mode, setMode] = useState<'order' | 'reservation'>('order');
+  const [mode, setModeState] = useState<'order' | 'reservation'>('order');
   const [reservationDetails, setReservationDetails] = useState<ReservationDetails | null>(null);
+
+  const setMode = (newMode: 'order' | 'reservation') => {
+    if (newMode !== mode) {
+      setItems([]); // Automatically flush items when switching between contexts
+      setModeState(newMode);
+    }
+  };
 
   const updateQuantity = (id: string, name: string, price: number, delta: number) => {
     setItems((prevItems) => {

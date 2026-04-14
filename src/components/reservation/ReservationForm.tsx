@@ -122,6 +122,15 @@ export function ReservationForm({ locationId, locationName, locationPhone }: Res
                 type="time"
                 value={time}
                 onChange={(e) => { setTime(e.target.value); setError(''); }}
+                onClick={(e) => {
+                  try {
+                    if (typeof e.currentTarget.showPicker === 'function') {
+                      e.currentTarget.showPicker();
+                    }
+                  } catch (err) {
+                    // Ignore gracefully on older browsers that lack showPicker support
+                  }
+                }}
                 className="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-10"
               />
               
