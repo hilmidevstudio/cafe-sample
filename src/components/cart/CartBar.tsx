@@ -208,9 +208,6 @@ export function CartBar({ locationId, locationName, locationPhone }: CartBarProp
           </div>
         )}
 
-          </div>
-        </div>
-
         {/* Compact Summary Bar (Always in DOM, handled by parent transform logic) */}
         <div 
           className="absolute top-0 left-0 right-0 p-5 w-full max-w-md mx-auto"
