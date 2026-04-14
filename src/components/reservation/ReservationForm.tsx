@@ -45,8 +45,8 @@ export function ReservationForm({ locationId, locationName, locationPhone }: Res
 
   const handleReservation = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!date || !time) {
-      setError('Silakan pilih jadwal tanggal dan jam terlebih dahulu.');
+    if (!date || !time || !pax) {
+      setError('Silakan lengkapi tanggal, jam, dan jumlah orang.');
       return;
     }
     setError('');
@@ -149,7 +149,7 @@ export function ReservationForm({ locationId, locationName, locationPhone }: Res
         {/* Pax Input */}
         <div>
           <label className="block text-sm font-semibold text-primary mb-3 ml-1 tracking-wide">
-            Jumlah Meja / Orang <span className="text-foreground/40 font-normal">(Opsional)</span>
+            Jumlah Orang
           </label>
           <div className="relative group">
             <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
